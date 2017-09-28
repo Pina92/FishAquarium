@@ -1,27 +1,10 @@
 #include <SFML/Graphics.hpp>
+#include "Fish.h"
 
 using namespace sf;
 
 int main()
 {
-
-	//Textures
-	Texture backgroundTexture, fishTexture;
-	//obs³uga b³êdnego wczytywania
-	backgroundTexture.loadFromFile("resources/textures/background.png");
-	fishTexture.loadFromFile("resources/textures/fish1.png");
-
-	
-	
-	//Sprites
-	Sprite background, fish;
-	
-	background.setTexture(backgroundTexture);
-	
-	fish.setTexture(fishTexture);
-	fish.setScale(0.25, 0.25);
-	fish.setPosition(100, 100);
-
 	
 	
 	// Creating game window.
@@ -39,12 +22,6 @@ int main()
 			}
 
 		}
-
-		// Drawing everything in window.
-		//window.clear(Color(30, 50, 100));
-		window.draw(background);
-		window.draw(fish);
-		window.display();
 
 	}
 
