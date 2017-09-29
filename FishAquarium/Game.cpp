@@ -1,50 +1,81 @@
-//Deklaracje (implementacje) klasy Game
 #include "Game.h"
-#include <SFML/Graphics.hpp>
 
-using namespace sf;
-
-// Konstruktor.
+// Constructor.
 Game::Game() {
 
-	// Creating window.
-
-
-	// Textures.
-	Texture backgroundTexture, fishTexture;
-
-	// TO-DO: Obs³uga b³êdnego wczytywania plków.
+	// Creating game window.
+	window.create(VideoMode(WIDTH, HEIGHT, 32), "FishAquarium");
 
 	// Creating background.
+	Texture backgroundTexture;
+	// TO-DO: Obs³uga b³êdnego wczytywania plków.
 	backgroundTexture.loadFromFile("resources/textures/background.png");
 	background.setTexture(backgroundTexture);
-
-	// Creating fish.
-	fishTexture.loadFromFile("resources/textures/fish1.png");
-	fish.setTexture(fishTexture);
-	fish.setScale(0.25, 0.25);
-	fish.setPosition(100, 100);
-
+	
+	// Starting the game.
+	play();
+	
 }
 
 
-// G³ówna funkcja odpowiedzialna za rozgrywkê.
 void Game::play() {
-
 
 	bool play = true;
 	
 	// Game loop.
-	while (play)
+	while (window.isOpen() && play)
 	{
+		// Window has a container which store occured events.
+		Event winEvent;
+		while (window.pollEvent(winEvent)) {
 
-		// Obs³uga klawiszy i poruszania siê rybki
+			// User want to close the window.
+			if (winEvent.type == Event::Closed) {
+				window.close();
+			}
 
+			// Obs³uga klawiszy i poruszania siê rybki
+			if (winEvent.type == Event::KeyPressed)
+			{
+
+				// ESCAPE
+				if(winEvent.key.code == Keyboard::Escape)
+					window.close(); // TO-DO: Display Menu
+
+				float posX = fish.getPosition().x;
+				float posY = fish.getPosition().y;
+
+				// Left arrow
+				if (winEvent.key.code == Keyboard::Left && posX != 0)
+				{ 
+					// TO-DO: Zmiana kierunku rybki
+					fish.swim(--posX, posY);
+				}
+				// Right arrow
+				if (winEvent.key.code == Keyboard::Right && posX != WIDTH)
+				{
+					// TO-DO: Zmiana kierunku rybki
+					fish.swim(++posX, posY);
+				}
+				// Up arrow
+				if (winEvent.key.code == Keyboard::Up && posY != 0)
+				{
+					fish.swim(posX, --posY);
+				}
+				// Down arrow
+				if (winEvent.key.code == Keyboard::Down && posY != HEIGHT)
+				{
+					fish.swim(posX, ++posY);
+				}
+
+			}
+
+		}
 
 		// Drawing everything in window.
-		//window.clear(Color(30, 50, 100));
+		window.clear(Color(30, 50, 100));
 		window.draw(background);
-		window.draw(fish);
+		fish.draw(window);
 		window.display();
 
 	}

@@ -1,14 +1,25 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "Fish.h"
 
-//Definicje klasy
+using namespace sf;
+
 class Game {
 
 private:
 
-public:
-	//Sprites
-	Sprite background, fish;
+	RenderWindow window;
+	Sprite background;
+	Fish fish;
 
-	Game(); //konstruktor
 	void play();
+
+public:
+	
+	static const unsigned short WIDTH = 800;
+	static const unsigned short HEIGHT = 600;
+	
+	// Constructor.
+	Game();
+
 };

@@ -1,29 +1,14 @@
+#include <stdlib.h>
 #include <SFML/Graphics.hpp>
-#include "Fish.h"
+#include "Game.h"
 
 using namespace sf;
 
 int main()
 {
 	
-	
-	// Creating game window.
-	RenderWindow window(VideoMode(800, 600, 32), "FishAquarium");
-
-	while (window.isOpen()) {
-
-		// Window has a container which store occured events.
-		Event winEvent;
-		while (window.pollEvent(winEvent)) {
-
-			// User want to close the window.
-			if (winEvent.type == Event::Closed) {
-				window.close();
-			}
-
-		}
-
-	}
+	Game newGame;
 
 	return 0;
+
 }
